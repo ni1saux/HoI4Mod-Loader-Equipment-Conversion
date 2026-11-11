@@ -1,0 +1,54 @@
+# The game rules as the global flags the loader's equipment_conversion tools read (MODDING.md
+# "Converting earlier generations"). Used at on_startup and by the opt-in event (console:
+# event hoi4_loader_equipment_conversion.1), which also opts an existing save in.
+
+# Sets the flags from the current game rules. Clears them first, so running it again matches the
+# rules exactly. The factor's default (75) sets no flag: the loader's default is the same.
+hoi4_loader_conversion_apply_rules = {
+	hoi4_loader_conversion_clear_flags = yes
+	if = {
+		limit = { has_game_rule = { rule = hoi4_loader_conversion_generations option = ALLOWED } }
+		set_global_flag = hoi4_loader_conversion_generations
+	}
+	if = {
+		limit = { has_game_rule = { rule = hoi4_loader_conversion_role_mode option = ALLOWED } }
+		set_global_flag = hoi4_loader_conversion_role_mode
+	}
+	if = {
+		limit = { has_game_rule = { rule = hoi4_loader_conversion_factor option = FACTOR_100 } }
+		set_global_flag = hoi4_loader_conversion_factor_100
+	}
+	if = {
+		limit = { has_game_rule = { rule = hoi4_loader_conversion_factor option = FACTOR_90 } }
+		set_global_flag = hoi4_loader_conversion_factor_90
+	}
+	if = {
+		limit = { has_game_rule = { rule = hoi4_loader_conversion_factor option = FACTOR_50 } }
+		set_global_flag = hoi4_loader_conversion_factor_50
+	}
+	if = {
+		limit = { has_game_rule = { rule = hoi4_loader_conversion_factor option = FACTOR_25 } }
+		set_global_flag = hoi4_loader_conversion_factor_25
+	}
+	if = {
+		limit = { has_game_rule = { rule = hoi4_loader_conversion_existing option = LOADER_COST } }
+		set_global_flag = hoi4_loader_conversion_existing_loader_cost
+	}
+	if = {
+		limit = { has_game_rule = { rule = hoi4_loader_conversion_naval option = ALLOWED } }
+		set_global_flag = hoi4_loader_conversion_naval
+	}
+}
+
+# Clears every flag: conversion is the base game's again (the loader removes its pairs). The
+# per-country "same role only" choices (hoi4_loader_conversion_role_<TAG>_<type>) are kept.
+hoi4_loader_conversion_clear_flags = {
+	clr_global_flag = hoi4_loader_conversion_generations
+	clr_global_flag = hoi4_loader_conversion_role_mode
+	clr_global_flag = hoi4_loader_conversion_factor_100
+	clr_global_flag = hoi4_loader_conversion_factor_90
+	clr_global_flag = hoi4_loader_conversion_factor_50
+	clr_global_flag = hoi4_loader_conversion_factor_25
+	clr_global_flag = hoi4_loader_conversion_existing_loader_cost
+	clr_global_flag = hoi4_loader_conversion_naval
+}

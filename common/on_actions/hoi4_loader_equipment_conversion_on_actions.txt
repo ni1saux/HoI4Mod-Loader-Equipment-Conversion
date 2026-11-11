@@ -1,0 +1,18 @@
+# New games: the game rules as the global flags the loader reads (common/scripted_effects/
+# hoi4_loader_equipment_conversion_effects.txt). Game rules are fixed for a game, and global flags
+# are saved with it, so setting them once at game start is enough. An existing save opts in with
+# the console: event hoi4_loader_equipment_conversion.1
+on_actions = {
+	on_startup = {
+		effect = {
+			# on_startup effects run without a scope, and scripted effects need one ("Invalid Scope
+			# ... provided: None"), so the call goes inside the human countries. The flags are
+			# global and the effect matches the rules exactly, so running it more than once
+			# (multiplayer) gives the same result.
+			every_country = {
+				limit = { is_ai = no }
+				hoi4_loader_conversion_apply_rules = yes
+			}
+		}
+	}
+}

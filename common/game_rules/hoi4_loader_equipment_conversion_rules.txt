@@ -1,0 +1,113 @@
+# HOI4 Loader Equipment Conversion: the gameplay mod for the loader's equipment_conversion tools.
+# The loader does nothing on its own; this mod switches its tools on through global flags that
+# common/scripted_effects/hoi4_loader_equipment_conversion_effects.txt sets from these rules: at
+# game start (on_actions), or from the console for an existing save
+# (event hoi4_loader_equipment_conversion.1; .2 opts out) (MODDING.md "Converting earlier generations"). With them, a production line's "Convert from
+# Stockpile" also takes equipment of earlier generations (infantry_equipment_0 and _1 into _2,
+# older chassis, airframes and hulls into newer ones). Without the loader the rules show but do
+# nothing.
+# Rule-level desc is not accepted ("Unexpected token: desc"); descriptions are on the options.
+hoi4_loader_conversion_generations = {
+	name = "RULE_HOI4_LOADER_CONVERSION_GENERATIONS"
+	group = "RULE_GROUP_HOI4_LOADER_CONVERSION"
+	default = {
+		name = ALLOWED
+		text = "RULE_OPTION_ALLOWED"
+		desc = "RULE_HOI4_LOADER_CONVERSION_GENERATIONS_ALLOWED_DESC"
+	}
+	option = {
+		name = BLOCKED
+		text = "RULE_OPTION_BLOCKED"
+		desc = "RULE_HOI4_LOADER_CONVERSION_GENERATIONS_BLOCKED_DESC"
+		allow_achievements = yes
+	}
+}
+
+# The conversion cost for a source g generations back is the game's own conversion cost times
+# factor^(g-1). The on_actions file turns the option into the global flag
+# hoi4_loader_conversion_factor_<percent>; without one the loader uses 75.
+hoi4_loader_conversion_factor = {
+	name = "RULE_HOI4_LOADER_CONVERSION_FACTOR"
+	group = "RULE_GROUP_HOI4_LOADER_CONVERSION"
+	default = {
+		name = FACTOR_75
+		text = "RULE_HOI4_LOADER_CONVERSION_FACTOR_75"
+		desc = "RULE_HOI4_LOADER_CONVERSION_FACTOR_75_DESC"
+	}
+	option = {
+		name = FACTOR_100
+		text = "RULE_HOI4_LOADER_CONVERSION_FACTOR_100"
+		desc = "RULE_HOI4_LOADER_CONVERSION_FACTOR_100_DESC"
+		allow_achievements = yes
+	}
+	option = {
+		name = FACTOR_90
+		text = "RULE_HOI4_LOADER_CONVERSION_FACTOR_90"
+		desc = "RULE_HOI4_LOADER_CONVERSION_FACTOR_90_DESC"
+		allow_achievements = yes
+	}
+	option = {
+		name = FACTOR_50
+		text = "RULE_HOI4_LOADER_CONVERSION_FACTOR_50"
+		desc = "RULE_HOI4_LOADER_CONVERSION_FACTOR_50_DESC"
+		allow_achievements = yes
+	}
+	option = {
+		name = FACTOR_25
+		text = "RULE_HOI4_LOADER_CONVERSION_FACTOR_25"
+		desc = "RULE_HOI4_LOADER_CONVERSION_FACTOR_25_DESC"
+		allow_achievements = yes
+	}
+}
+
+# Conversions the game or another mod already allows (can_convert_from entries, variants of the
+# same equipment): keep the game's cost, or use the factor above as well.
+hoi4_loader_conversion_existing = {
+	name = "RULE_HOI4_LOADER_CONVERSION_EXISTING"
+	group = "RULE_GROUP_HOI4_LOADER_CONVERSION"
+	default = {
+		name = GAME_COST
+		text = "RULE_HOI4_LOADER_CONVERSION_EXISTING_GAME_COST"
+		desc = "RULE_HOI4_LOADER_CONVERSION_EXISTING_GAME_COST_DESC"
+	}
+	option = {
+		name = LOADER_COST
+		text = "RULE_HOI4_LOADER_CONVERSION_EXISTING_LOADER_COST"
+		desc = "RULE_HOI4_LOADER_CONVERSION_EXISTING_LOADER_COST_DESC"
+		allow_achievements = yes
+	}
+}
+
+# Shift+click on a production line's convert button: "same role only" (fighters only from fighters).
+hoi4_loader_conversion_role_mode = {
+	name = "RULE_HOI4_LOADER_CONVERSION_ROLE_MODE"
+	group = "RULE_GROUP_HOI4_LOADER_CONVERSION"
+	default = {
+		name = ALLOWED
+		text = "RULE_OPTION_ALLOWED"
+		desc = "RULE_HOI4_LOADER_CONVERSION_ROLE_MODE_ALLOWED_DESC"
+	}
+	option = {
+		name = BLOCKED
+		text = "RULE_OPTION_BLOCKED"
+		desc = "RULE_HOI4_LOADER_CONVERSION_ROLE_MODE_BLOCKED_DESC"
+		allow_achievements = yes
+	}
+}
+
+# Ship hulls: refitting an older hull's ships into a newer hull. Off by default.
+hoi4_loader_conversion_naval = {
+	name = "RULE_HOI4_LOADER_CONVERSION_NAVAL"
+	group = "RULE_GROUP_HOI4_LOADER_CONVERSION"
+	default = {
+		name = BLOCKED
+		text = "RULE_OPTION_BLOCKED"
+		desc = "RULE_HOI4_LOADER_CONVERSION_NAVAL_BLOCKED_DESC"
+	}
+	option = {
+		name = ALLOWED
+		text = "RULE_OPTION_ALLOWED"
+		desc = "RULE_HOI4_LOADER_CONVERSION_NAVAL_ALLOWED_DESC"
+		allow_achievements = yes
+	}
+}

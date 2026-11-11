@@ -1,0 +1,28 @@
+# Console opt-in / opt-out for the loader's equipment_conversion tools, for saves started without
+# this mod (on_startup only runs for new games) or to switch them during a game:
+#   event hoi4_loader_equipment_conversion.1   opt in: the flags as the game rules say
+#   event hoi4_loader_equipment_conversion.2   opt out: every flag cleared
+# Hidden: nothing shows; the loader picks the flags up within a second (loader.log: "earlier
+# generations ON" / "OFF") and logs/game.log gets a line. The flags are global, so it does not
+# matter which country the console fires the event for.
+add_namespace = hoi4_loader_equipment_conversion
+
+country_event = {
+	id = hoi4_loader_equipment_conversion.1
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		hoi4_loader_conversion_apply_rules = yes
+		log = "hoi4_loader_equipment_conversion: opted in from the game rules (event .1)"
+	}
+}
+
+country_event = {
+	id = hoi4_loader_equipment_conversion.2
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		hoi4_loader_conversion_clear_flags = yes
+		log = "hoi4_loader_equipment_conversion: opted out, flags cleared (event .2)"
+	}
+}
